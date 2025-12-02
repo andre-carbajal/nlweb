@@ -51,14 +51,18 @@ async function loadNews() {
                 imgUrl = imgInDesc.src;
             }
 
+            // Extraer el link original
+            const link = item.querySelector("link")?.textContent || "#";
+
             // Crear la tarjeta HTML
             const card = `
                 <div class="news-card">
                     <img src="${imgUrl}" class="news-img" alt="Imagen noticia">
                     <div class="news-content">
                         <span class="news-tag">Tendencia</span>
-                        <h3 class="news-title">${title}</h3>
+                        <h3 class="news-title"><a href="${link}" target="_blank" style="text-decoration: none; color: inherit;">${title}</a></h3>
                         <p class="news-desc">${desc}</p>
+                        <a href="${link}" target="_blank" style="display: inline-block; margin-top: 10px; color: #007bff; text-decoration: none; font-weight: bold;">Leer más &rarr;</a>
                     </div>
                 </div>
             `;
@@ -121,7 +125,21 @@ async function sendMessage() {
         const data = await res.json();
 
         // Obtenemos la respuesta. Si viene vacía, ponemos un mensaje de error.
-        const botReply = data.answer || "Lo siento, hubo un error procesando tu respuesta.";
+        let botReply = data.answer || "Lo siento, hubo un error procesando tu respuesta.";
+
+        // --- NUEVO: Agregar fuentes si existen ---
+        if (data.source_data && Array.isArray(data.source_data) && data.source_data.length > 0) {
+            botReply += '<div class="sources-section" style="margin-top: 10px; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 5px;">';
+            botReply += '<strong>Fuentes:</strong><ul style="margin: 5px 0; padding-left: 20px;">';
+
+            data.source_data.forEach(source => {
+                const url = source.url || "#";
+                const headline = source.headline || "Noticia original";
+                botReply += `<li><a href="${url}" target="_blank" style="color: #007bff; text-decoration: none;">${headline}</a></li>`;
+            });
+
+            botReply += '</ul></div>';
+        }
 
         // 2. Mostrar respuesta del bot
         chatBox.innerHTML += `<div class="msg msg-bot">${botReply}</div>`;
