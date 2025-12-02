@@ -21,9 +21,9 @@ graph TD
     end
     
     subgraph Backend Server
-        Flask[server.py (Flask)]
+        Flask["server.py (Flask)"]
         Static[Servidor de Archivos]
-        SearchAPI[/search Endpoint]
+        SearchAPI["/search Endpoint"]
     end
     
     subgraph Data Pipeline
@@ -53,12 +53,12 @@ graph TD
     Qdrant -->|Contexto + Schema| SearchAPI
     SearchAPI -->|Prompt + Contexto| OpenAI_Chat
     OpenAI_Chat -->|Respuesta Natural| SearchAPI
-    SearchAPI -->|JSON (Answer + Source Data)| JS
+    SearchAPI -->|"JSON (Answer + Source Data)"| JS
     
     %% Flujo de Ingesta
     ETL -->|Lee| Feed
     ETL -->|Genera| OpenAI_Emb
-    ETL -->|Upsert (Payload Schema.org)| Qdrant
+    ETL -->|"Upsert (Payload Schema.org)"| Qdrant
 ```
 
 ## 3. Descripción de Componentes
