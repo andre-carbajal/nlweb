@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuzzFeed News AI | Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Mauricio<span>News</span></a>
+            <nav>
+                <a href="#">Trending</a>
+                <a href="#">Videos</a>
+                <a href="#">Quizzes</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Últimas Tendencias</h2>
+        <div class="news-grid" id="news-container">
+            <p>Cargando noticias desde tu servidor local...</p>
+        </div>
+    </div>
+
+    <button class="chat-toggle-btn" onclick="toggleChat()">💬</button>
+
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-header">
+            <span>Asistente IA</span>
+            <span class="close-btn" onclick="toggleChat()">×</span>
+        </div>
+        <div class="chat-body" id="chat-box">
+            <div class="msg msg-bot">¡Hola! He leído todo lo que ves en esta página. Pregúntame sobre los artículos.</div>
+        </div>
+        <div class="loading" id="loading">Escribiendo...</div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Pregunta algo..." onkeypress="handleEnter(event)">
+            <button class="send-btn" onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
