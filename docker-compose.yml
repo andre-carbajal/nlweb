@@ -1,0 +1,35 @@
+name: nlweb
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+    depends_on:
+      - qdrant
+    volumes:
+      - .:/app
+    networks:
+      - nlweb-network
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - nlweb-network
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+
+networks:
+  nlweb-network:
+    driver: bridge

@@ -1,7 +1,7 @@
 [project]
-name = "backend"
+name = "NLWEB"
 version = "0.1.0"
-description = "Add your description here"
+description = "NLWEB implementación de NLWeb para un sitio web de noticias ficticio."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
